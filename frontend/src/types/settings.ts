@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export type SettingType = 'boolean' | 'text' | 'number' | 'select' | 'multiselect';
 
 export interface BaseSetting {
@@ -37,4 +36,5 @@ export interface MultiselectSetting extends BaseSetting {
 }
 
 export type Setting = BooleanSetting | TextSetting | NumberSetting | SelectSetting | MultiselectSetting;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SettingsValues = Record<string, any>;
