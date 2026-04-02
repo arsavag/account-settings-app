@@ -18,10 +18,10 @@ async function start() {
 
   useRoutes(app);
 
-  app.get('/health', (_req, res) => {
-    res.json({ ok: true });
+  app.get('/api/test', (req, res) => {
+    res.json({ message: 'Direct route works' });
   });
-
+  
   app.listen(port, () => {
     console.log(`Listening on http://localhost:${port}`);
   });
