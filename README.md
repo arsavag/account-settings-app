@@ -143,9 +143,30 @@ npx tsc          # Emit JavaScript to dist/ (if you add a build script)
 
 ---
 
+## Deploy frontend to GitHub Pages
+
+The SPA is built with asset paths under **`/account-settings-app/`** (change the path in **`package.json`** if your GitHub repo name differs).
+
+1. In **`frontend/package.json`**, set **`homepage`** to `https://<your-username>.github.io/<repo-name>/`.
+2. If the repo name is not **`account-settings-app`**, update the **`--base=/.../`** flags in **`build:gh-pages`** and **`preview:gh-pages`** to match **`/<repo-name>/`**.
+3. For a hosted API (GitHub Pages is static only), add **`frontend/.env.production`** with  
+   **`VITE_API_BASE_URL=https://your-backend.example.com`** (origin only, no `/api` suffix).
+4. In the GitHub repo: **Settings → Pages → Build and deployment → Branch `gh-pages` / (root)** after the first deploy.
+
+```bash
+cd frontend
+npm install
+npm run deploy            # same as deploy:gh-pages (GitHub Pages)
+npm run deploy:gh-pages   # build with correct base, push dist/ to branch gh-pages
+```
+
+`public/.nojekyll` is included so GitHub Pages does not ignore SPA assets. Enable **HTTPS** on the API and **CORS** for your Pages origin if the API lives on another domain.
+
+---
+
 ## Configuration notes
 
-- **`frontend/src/config/apiConfig.ts`** — Set the backend base URL so `fetch` targets the correct host in dev and deployment.
+- **`frontend/src/config/apiConfig.ts`** — Uses **`VITE_API_BASE_URL`** when set (e.g. in **`.env.production`**); otherwise **`http://localhost:3000`**. Use the API **origin only** (not `.../api`).
 - **`frontend/vite.config.ts`** — `server.proxy` forwards **`/api`** to **`http://localhost:3000`**; useful if you change the client to call relative `/api/...` instead of an absolute base URL.
 - **`backend/src/configs/defaultSettings.ts`** and **`frontend/src/config/settingsConfig.ts`** should stay **aligned** (same setting keys and compatible types) so the form and API agree.
 
