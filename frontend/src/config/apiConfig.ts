@@ -1,12 +1,7 @@
-/**
- * API origin only (no `/api` suffix). Override for production, e.g. GitHub Pages → hosted backend:
- * `VITE_API_BASE_URL=https://your-api.example.com`
- */
-const BASE = (import.meta.env.VITE_API_BASE_URL as string | undefined)?.replace(/\/$/, '') ?? 'http://localhost:3000';
+const BACKEND_BASE_URL = 'https://account-settings-app-e8am.onrender.com';
 
 const API_ROUTES = {
-  ACCOUNTS: `${BASE}/api/accounts`,
-  SETTINGS: `${BASE}/api/settings`,
+  ACCOUNTS: `${BACKEND_BASE_URL}/api/accounts`,
+  SETTINGS: `${BACKEND_BASE_URL}/api/settings`,
 };
-
 export { API_ROUTES };

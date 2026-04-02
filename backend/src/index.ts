@@ -11,6 +11,11 @@ app.use(express.json());
 
 async function start() {
   await initDb();
+
+  app.get('/health', (_req, res) => {
+    res.json({ ok: true });
+  });
+
   useRoutes(app);
 
   app.get('/health', (_req, res) => {
