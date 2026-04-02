@@ -1,4 +1,4 @@
-const BACKEND_BASE_URL = 'https://account-settings-app-e8am.onrender.com';
+const BACKEND_BASE_URL = import.meta.env.VITE_API_BASE_URL as string | undefined ?? 'http://localhost:3000';
 
 const API_ROUTES = {
   ACCOUNTS: `${BACKEND_BASE_URL}/api/accounts`,

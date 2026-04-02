@@ -1,6 +1,8 @@
 import { getDb } from '../../configs/database';
 
 export async function listAccounts() {
-  const db = await getDb();
-  return db.all<{ id: string; name: string }[]>('SELECT id, name FROM accounts');
+  const rows = getDb()
+    .prepare('SELECT id, name FROM accounts')
+    .all() as { id: string; name: string }[];
+  return rows;
 }

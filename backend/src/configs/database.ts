@@ -1,28 +1,26 @@
 import path from 'node:path';
-import sqlite3 from 'sqlite3';
-import { open, type Database } from 'sqlite';
+import SQLite from 'better-sqlite3';
 
 const DB_FILENAME = 'database.sqlite';
 
-let db: Database | null = null;
+let db: InstanceType<typeof SQLite> | null = null;
 
 export function getDatabasePath(): string {
   return path.join(process.cwd(), DB_FILENAME);
 }
 
-export async function getDb(): Promise<Database> {
+export function getDb(): InstanceType<typeof SQLite> {
   if (!db) {
-    db = await open({
-      filename: getDatabasePath(),
-      driver: sqlite3.Database,
-    });
+    db = new SQLite(getDatabasePath());
+    db.pragma('journal_mode = WAL');
   }
   return db;
 }
 
-export async function initDb(): Promise<void> {
-  const db = await getDb();
-  await db.exec(`
+export function initDb(): void {
+  const database = getDb();
+
+  database.exec(`
     CREATE TABLE IF NOT EXISTS accounts (
       id TEXT PRIMARY KEY,
       name TEXT NOT NULL
@@ -34,15 +32,12 @@ export async function initDb(): Promise<void> {
       PRIMARY KEY (account_id, setting_key)
     );
   `);
-  
-  const accounts = await db.all('SELECT id, name FROM accounts');
-  if (accounts.length === 0) {
-    await db.run(`
-      INSERT INTO accounts (id, name) VALUES 
-      ('1', 'Account 1'),
-      ('2', 'Account 2'),
-      ('3', 'Account 3')
-    `);
-  }
 
+  const row = database.prepare('SELECT COUNT(*) AS c FROM accounts').get() as { c: number };
+  if (row.c === 0) {
+    const insert = database.prepare('INSERT INTO accounts (id, name) VALUES (?, ?)');
+    insert.run('1', 'Account 1');
+    insert.run('2', 'Account 2');
+    insert.run('3', 'Account 3');
+  }
 }

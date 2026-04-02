@@ -17,7 +17,7 @@ Full-stack demo for **managing per-account settings**: a **React** UI lists acco
 | Part | Stack | Role |
 |------|--------|------|
 | **frontend/** | Vite, React 19, MUI, react-hook-form | SPA: account list + dynamic settings form; calls REST API via `fetch`. |
-| **backend/** | Express 5, TypeScript, `sqlite` + `sqlite3` | REST API, CORS, JSON body; SQLite file on disk. |
+| **backend/** | Express 5, TypeScript, **`better-sqlite3`** | REST API, CORS, JSON body; synchronous SQLite, WAL mode, file on disk. |
 
 The frontend **`apiConfig`** points at **`http://localhost:3000`** by default. **Vite** proxies **`/api/*`** to the same host in dev (see `frontend/vite.config.ts`), so you can later switch the UI to relative `/api` URLs if you align `apiConfig` with that pattern.
 
