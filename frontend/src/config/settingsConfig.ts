@@ -44,4 +44,14 @@ export const SETTINGS_CONFIG: Setting[] = [
     ],
     defaultValue: [],
   },
+  // {
+  //   id: 'theme',
+  //   label: 'Theme',
+  //   type: 'select',
+  //   options: [
+  //     { value: 'light', label: 'Light' },
+  //     { value: 'dark', label: 'Dark' },
+  //   ],
+  //   defaultValue: 'light',
+  // }
 ];

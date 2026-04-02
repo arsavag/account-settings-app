@@ -1,5 +1,5 @@
-import { Suspense, useCallback, useState, useTransition } from 'react';
-import { Container, Grid, Paper, Typography, Snackbar, Alert, CircularProgress } from '@mui/material';
+import { useCallback, useState, useTransition } from 'react';
+import { Alert, Container, Grid, Paper, Snackbar, Typography } from '@mui/material';
 import SettingsContent from './SettingsContent';
 import { AccountList } from '../../components/AccountList';
 import type { SettingsValues } from '../../types/settings';
@@ -27,8 +27,9 @@ export const AccountSettings = () => {
       try {
         await saveSettings(selectedAccount, data);
         setSnackbar({ open: true, message: 'Settings saved successfully', severity: 'success' });
-      } catch {
-        setSnackbar({ open: true, message: 'Failed to save settings', severity: 'error' });
+      } catch (e) {
+        const message = e instanceof Error ? e.message : 'Failed to save settings';
+        setSnackbar({ open: true, message, severity: 'error' });
       }
     },
     [selectedAccount]
@@ -56,9 +57,11 @@ export const AccountSettings = () => {
               <Typography color="textSecondary">Select an account to manage settings</Typography>
             )}
             {selectedAccount && (
-              <Suspense fallback={<CircularProgress />}>
-                <SettingsContent accountId={selectedAccount} onSubmit={handleSubmit} />
-              </Suspense>
+              <SettingsContent
+                key={selectedAccount}
+                accountId={selectedAccount}
+                onSubmit={handleSubmit}
+              />
             )}
           </Paper>
         </Grid>
