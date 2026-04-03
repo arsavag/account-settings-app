@@ -1,3 +1,4 @@
+// AI note: Express entry — CORS + JSON, SQLite init before routes, REST under /api via useRoutes.
 import express from 'express';
 import cors from 'cors';
 import { initDb } from './configs/database.js';
@@ -10,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 try {
-  initDb();
+  initDb(); // AI note: ensures schema + seed exist before accepting traffic.
 } catch (err) {
   console.error(err);
   process.exit(1);

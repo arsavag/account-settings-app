@@ -20,6 +20,7 @@ export function getDb(): InstanceType<typeof SQLite> {
 export function initDb(): void {
   const database = getDb();
 
+  // AI note: Schema — accounts for listing; account_settings stores arbitrary keys as JSON text per account.
   database.exec(`
     CREATE TABLE IF NOT EXISTS accounts (
       id TEXT PRIMARY KEY,
@@ -33,6 +34,7 @@ export function initDb(): void {
     );
   `);
 
+  // AI note: Dev convenience — empty DB gets three fixed IDs the UI can select immediately.
   const row = database.prepare('SELECT COUNT(*) AS c FROM accounts').get() as { c: number };
   if (row.c === 0) {
     const insert = database.prepare('INSERT INTO accounts (id, name) VALUES (?, ?)');

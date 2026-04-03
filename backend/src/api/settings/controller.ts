@@ -1,6 +1,7 @@
 import { getDb } from '../../configs/database.js';
 import { DEFAULT_SETTINGS } from '../../configs/defaultSettings.js';
 
+// AI note: Read stored JSON values per key; merge with server defaults so the client always gets a full shape.
 export async function getSettingsForAccount(accountId: string) {
   const rows = getDb()
     .prepare('SELECT setting_key, setting_value FROM account_settings WHERE account_id = ?')
@@ -13,6 +14,7 @@ export async function getSettingsForAccount(accountId: string) {
   return { ...DEFAULT_SETTINGS, ...stored };
 }
 
+// AI note: Upsert all keys in one transaction; values are JSON-stringified in SQLite.
 export async function saveSettingsForAccount(accountId: string, settings: Record<string, unknown>) {
   const db = getDb();
   const stmt = db.prepare(

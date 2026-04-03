@@ -2,6 +2,7 @@ import type { SettingsValues } from '../types/settings';
 import { API_ROUTES } from '../config/apiConfig';
 // import { SETTINGS_CONFIG } from '../config/settingsConfig';
 
+// AI note: On 2xx, parse JSON body. On failure, read text once; use `error` from JSON if present, else body or status — then throw so callers get a clear message.
 async function parseJsonResponse<T>(response: Response): Promise<T> {
   if (!response.ok) {
     const text = await response.text();
