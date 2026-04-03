@@ -3,8 +3,9 @@ import react from '@vitejs/plugin-react';
 
 // https://vite.dev/config/
 //
-// The app uses absolute API URLs from `src/config/apiConfig.ts` (`VITE_API_BASE_URL` or
-// http://localhost:3000). Those requests do NOT go through this proxy.
+// The app uses absolute API URLs from `src/config/apiConfig.ts`: dev defaults to
+// http://localhost:3000; production uses VITE_API_BASE_URL (e.g. .env.production).
+// Those requests do NOT go through this proxy unless you switch to relative /api paths.
 //
 // For a backend on Render (or any host), set in `.env.development` / `.env.local`:
 //   VITE_API_BASE_URL=https://your-service.onrender.com
