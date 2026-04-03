@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getSettingsForAccount, saveSettingsForAccount } from './controller';
+import { getSettingsForAccount, saveSettingsForAccount } from './controller.js';
 
 const router = Router();
 

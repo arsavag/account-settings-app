@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import { initDb } from './configs/database';
-import { useRoutes } from './useRoutes';
+import { initDb } from './configs/database.js';
+import { useRoutes } from './useRoutes.js';
 
 const app = express();
 const port = Number(process.env.PORT) || 3000;

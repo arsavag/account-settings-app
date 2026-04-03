@@ -1,5 +1,5 @@
-import { getDb } from '../../configs/database';
-import { DEFAULT_SETTINGS } from '../../configs/defaultSettings';
+import { getDb } from '../../configs/database.js';
+import { DEFAULT_SETTINGS } from '../../configs/defaultSettings.js';
 
 export async function getSettingsForAccount(accountId: string) {
   const rows = getDb()

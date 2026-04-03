@@ -1,6 +1,6 @@
 import { Application } from 'express';
-import accountsRoutes from './api/accounts/routes';
-import settingsRoutes from './api/settings/routes';
+import accountsRoutes from './api/accounts/routes.js';
+import settingsRoutes from './api/settings/routes.js';
 
 export function useRoutes(app: Application) {
   app.use('/api/accounts', accountsRoutes);
